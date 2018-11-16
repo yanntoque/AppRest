@@ -54,6 +54,7 @@ public class ClientWS {
      * @param prenom
      */
     @PUT
+    @Path("{nom}/{prenom}")
     @Consumes(MediaType.TEXT_PLAIN)
     public void putNewClient(@PathParam("nom") String nom, @PathParam("prenom") String prenom) {
         Client newClient = new Client(nom, prenom);
