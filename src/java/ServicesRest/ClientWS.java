@@ -5,6 +5,8 @@
  */
 package ServicesRest;
 
+import Beans.Client;
+import Beans.ListeClients;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -22,6 +24,8 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("client")
 public class ClientWS {
+    
+    ListeClients lstClients = new ListeClients();
 
     @Context
     private UriInfo context;
@@ -49,6 +53,8 @@ public class ClientWS {
      */
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
-    public void putText(String content) {
+    public void putNewClient(String nom, String prenom) {
+        Client newClient = new Client(nom, prenom);
+        this.lstClients.ajouterClientDansListe(newClient);
     }
 }

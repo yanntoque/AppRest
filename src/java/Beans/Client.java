@@ -14,6 +14,11 @@ public class Client {
     
     private String nom;
     private String prenom;
+    
+    public Client(String nom, String prenom){
+        this.setNom(nom);
+        this.setPrenom(prenom);
+    }
 
     public String getNom() {
         return nom;
