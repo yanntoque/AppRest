@@ -7,11 +7,16 @@ package ServicesRest;
 
 import Beans.Client;
 import Beans.ListeClients;
+import java.util.Map;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.DELETE;
+import static javax.ws.rs.HttpMethod.POST;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -56,11 +61,33 @@ public class ClientWS {
      * @param nom
      * @param prenom
      */
-    @PUT
+    @POST
     @Path("{nom}/{prenom}")
     @Consumes(MediaType.TEXT_PLAIN)
-    public void putNewClient(@PathParam("nom") String nom, @PathParam("prenom") String prenom) {
+    public void postNewClient(@PathParam("nom") String nom, @PathParam("prenom") String prenom) {
         Client newClient = new Client(nom, prenom);
         lstClients.ajouterClientDansListe(newClient);
+    }
+    
+    @PUT
+    @Path("{id}/{nom}/{prenom}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void updateClient(@PathParam("id") int id, @PathParam("nom") String nom, @PathParam("prenom") String prenom){
+        lstClients.consulterClient(id).setNom(nom);
+        lstClients.consulterClient(id).setPrenom(prenom);
+    }
+    
+    @DELETE
+    @Path("{id}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void deleteClient(@PathParam("id") int id){
+        lstClients.supprimerClient(id);
+    }
+    
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_XML)
+    public ListeClients getAllClients(){
+        return lstClients;
     }
 }
