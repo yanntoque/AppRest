@@ -5,15 +5,20 @@
  */
 package Beans;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Yann Toqué
  * @author Valentin Lecouple
  */
+@XmlRootElement
 public class Client {
     
     private String nom;
     private String prenom;
+    
+    public Client(){}
     
     public Client(String nom, String prenom){
         this.setNom(nom);

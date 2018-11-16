@@ -26,8 +26,8 @@ import javax.ws.rs.core.MediaType;
 @Path("client")
 public class ClientWS {
     
-    ListeClients lstClients = new ListeClients();
-
+    private static ListeClients lstClients = new ListeClients();
+    
     @Context
     private UriInfo context;
 
@@ -42,10 +42,13 @@ public class ClientWS {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getText() {
-        //TODO return proper representation object
-        return "ici method getText";
+    @Path("{id}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_XML)
+    public Client getClient(@PathParam("id") int id) {
+        Client getClient = lstClients.consulterClient(id);
+        System.out.println(getClient.getPrenom());
+        return(getClient);
     }
 
     /**
@@ -58,6 +61,6 @@ public class ClientWS {
     @Consumes(MediaType.TEXT_PLAIN)
     public void putNewClient(@PathParam("nom") String nom, @PathParam("prenom") String prenom) {
         Client newClient = new Client(nom, prenom);
-        this.lstClients.ajouterClientDansListe(newClient);
+        lstClients.ajouterClientDansListe(newClient);
     }
 }

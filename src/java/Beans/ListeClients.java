@@ -7,24 +7,26 @@ package Beans;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Yann Toqué
  * @author Valentin Lecouple
  */
+@XmlRootElement
 public class ListeClients {
-    Map<Integer,Client> mapClients;
-    Integer cpt;
+    private Map<Integer,Client> mapClients;
+    private Integer cpt;
     
     public ListeClients(){
         this.mapClients = new HashMap();
-        cpt = 0;
+        this.cpt = 0;
     }
     
     public void ajouterClientDansListe(Client c){
         this.mapClients.put(cpt, c);
-        cpt++;
+        this.cpt++;
     }
     
     public void modifierClient(int indexClientToEdit, Client newClientValue){
@@ -32,6 +34,9 @@ public class ListeClients {
     }
     
     public Client consulterClient(int indexClient){
+        System.out.println("LIST CLIENT HERE: INDEX IS: " + indexClient);
+        System.out.println("LIST CLIENT HERE: CURRENT CPT IS: " + cpt);
+        System.out.println("LIST CLIENT HERE: CLIENT NAME IS: " + this.mapClients.get(indexClient).getNom());
         return(this.mapClients.get(indexClient));
     }
     
@@ -41,5 +46,21 @@ public class ListeClients {
     
     public Map consulterListeClient(){
         return(this.mapClients);
+    }
+
+    public Map<Integer, Client> getMapClients() {
+        return mapClients;
+    }
+
+    public void setMapClients(Map<Integer, Client> mapClients) {
+        this.mapClients = mapClients;
+    }
+
+    public Integer getCpt() {
+        return cpt;
+    }
+
+    public void setCpt(Integer cpt) {
+        this.cpt = cpt;
     }
 }
